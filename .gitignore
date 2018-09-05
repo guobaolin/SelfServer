@@ -1,0 +1,11 @@
+*/.settings/
+*/target/
+
+# Eclipse project files
+.classpath
+.project
+.DS_Store
+
+#IDEA project files
+*.iml
+*.idea
