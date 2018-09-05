@@ -6,5 +6,5 @@ feature-A
 
 fix-B
 
-add feature-C1
+add feature-C
 
