@@ -2,17 +2,19 @@ package com.gbl.config;
 
 import com.gbl.properties.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.annotation.CachingConfigurerSupport;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisPassword;
-import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.context.annotation.PropertySource;
+import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.JedisShardInfo;
 
 @Configuration
+@EnableCaching
 @EnableConfigurationProperties(RedisProperties.class)
-public class RedisConfig {
+@PropertySource("classpath:config/redis.properties")
+public class RedisConfig extends CachingConfigurerSupport {
     private RedisProperties properties;
 
     public RedisConfig(RedisProperties properties) {
@@ -33,28 +35,39 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisStandaloneConfiguration redisStandaloneConfiguration(){
-        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-        redisStandaloneConfiguration.setDatabase(properties.getDatabase());
-        redisStandaloneConfiguration.setHostName(properties.getHostName());
-        redisStandaloneConfiguration.setPort(properties.getPort());
-        redisStandaloneConfiguration.setPassword(RedisPassword.of(properties.getPassword()));
-        return redisStandaloneConfiguration;
+    public JedisPool redisPoolFactory(JedisPoolConfig jedisPoolConfig) {
+        JedisPool jedisPool = new JedisPool(
+                jedisPoolConfig,
+                properties.getHostName(),
+                properties.getPort(),
+                properties.getTimeout()
+        );
+        return jedisPool;
     }
 
-    @Bean
-    public JedisShardInfo jedisShardInfo(){
-        JedisShardInfo jedisShardInfo = new JedisShardInfo(properties.getHostName(), properties.getPort());
-        jedisShardInfo.setConnectionTimeout(properties.getTimeout());
-        jedisShardInfo.setPassword(properties.getPassword());
-        return jedisShardInfo;
-    }
+//    @Bean
+//    public RedisStandaloneConfiguration redisStandaloneConfiguration(){
+//        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
+//        redisStandaloneConfiguration.setDatabase(properties.getDatabase());
+//        redisStandaloneConfiguration.setHostName(properties.getHostName());
+//        redisStandaloneConfiguration.setPort(properties.getPort());
+//        redisStandaloneConfiguration.setPassword(RedisPassword.of(properties.getPassword()));
+//        return redisStandaloneConfiguration;
+//    }
+//
+//    @Bean
+//    public JedisShardInfo jedisShardInfo(){
+//        JedisShardInfo jedisShardInfo = new JedisShardInfo(properties.getHostName(), properties.getPort());
+//        jedisShardInfo.setConnectionTimeout(properties.getTimeout());
+//        jedisShardInfo.setPassword(properties.getPassword());
+//        return jedisShardInfo;
+//    }
 
-    @Bean
-    public JedisConnectionFactory jedisConnectionFactory(RedisStandaloneConfiguration redisStandaloneConfiguration){
-        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(redisStandaloneConfiguration);
-//        jedisConnectionFactory
-        return jedisConnectionFactory;
-    }
+//    @Bean
+//    public JedisConnectionFactory jedisConnectionFactory(ResStandaloneConfiguration redisStandaloneConfiguration){
+//        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(redisStandaloneConfiguration);
+////        jedisConnectionFactory
+//        return jedisConnectionFactory;
+//    }
 
 }

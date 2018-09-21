@@ -1,10 +1,8 @@
 package com.gbl.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 
 @ConfigurationProperties(prefix = RedisProperties.REDIS_PREFIX)
-@PropertySource("classpath:config/redis.yml")
 public class RedisProperties {
     public final static String REDIS_PREFIX = "redis";
 
@@ -129,3 +127,4 @@ public class RedisProperties {
     }
 
 }
+
