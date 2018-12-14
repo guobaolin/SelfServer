@@ -1,0 +1,17 @@
+server:
+  port: 8091
+
+rocketmq:
+  producer:
+    groupName: guobaolin-groupName
+    namesrvAddr: 192.168.120.129:9876
+    instanceName: guobaolin-instanceName
+    maxMessageSize: 131072
+    sendMsgTimeout: 10000
+  consumer:
+    groupName: guobaolin-c-groupName
+    namesrvAddr: 192.168.120.129:9876
+    topic: TEST-TOPIC
+    tag: TEST-TAG
+    consumeThreadMin: 1
+    consumeThreadMax: 3

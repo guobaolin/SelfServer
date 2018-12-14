@@ -1,13 +1,15 @@
 package com.gbl;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
+
+import java.util.UUID;
 
 public class AppTest {
 
     @Test
     public void shouldAnswerWithTrue() {
-        assertTrue(true);
+        int i = 1;
+
+        System.out.println(1 << 2);
     }
 }

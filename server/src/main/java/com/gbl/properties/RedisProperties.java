@@ -1,10 +1,14 @@
 package com.gbl.properties;
 
+import com.baidu.disconf.client.common.annotations.DisconfFile;
+import com.baidu.disconf.client.common.annotations.DisconfFileItem;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = RedisProperties.REDIS_PREFIX)
+@ConfigurationProperties
+//@ConfigurationProperties(prefix = RedisProperties.REDIS_PREFIX)
+@DisconfFile(filename = "redis.properties", targetDirPath = "config")
 public class RedisProperties {
-    public final static String REDIS_PREFIX = "redis";
+//    public final static String REDIS_PREFIX = "redis";
 
     private String hostName;
 
@@ -30,6 +34,7 @@ public class RedisProperties {
 
     private boolean testWhileIdle;
 
+    @DisconfFileItem(name = "redis.hostName", associateField = "hostName")
     public String getHostName() {
         return hostName;
     }
@@ -38,6 +43,7 @@ public class RedisProperties {
         this.hostName = hostName;
     }
 
+    @DisconfFileItem(name = "redis.port", associateField = "port")
     public Integer getPort() {
         return port;
     }
@@ -46,6 +52,7 @@ public class RedisProperties {
         this.port = port;
     }
 
+    @DisconfFileItem(name = "redis.password", associateField = "password")
     public String getPassword() {
         return password;
     }
@@ -54,6 +61,7 @@ public class RedisProperties {
         this.password = password;
     }
 
+    @DisconfFileItem(name = "redis.database", associateField = "database")
     public Integer getDatabase() {
         return database;
     }
@@ -62,6 +70,7 @@ public class RedisProperties {
         this.database = database;
     }
 
+    @DisconfFileItem(name = "redis.timeout", associateField = "timeout")
     public Integer getTimeout() {
         return timeout;
     }
@@ -70,6 +79,7 @@ public class RedisProperties {
         this.timeout = timeout;
     }
 
+    @DisconfFileItem(name = "redis.maxIdle", associateField = "maxIdle")
     public Integer getMaxIdle() {
         return maxIdle;
     }
@@ -78,6 +88,7 @@ public class RedisProperties {
         this.maxIdle = maxIdle;
     }
 
+    @DisconfFileItem(name = "redis.maxTotal", associateField = "maxTotal")
     public Integer getMaxTotal() {
         return maxTotal;
     }
@@ -86,6 +97,7 @@ public class RedisProperties {
         this.maxTotal = maxTotal;
     }
 
+    @DisconfFileItem(name = "redis.minEvictableIdleTimeMillis", associateField = "minEvictableIdleTimeMillis")
     public Integer getMinEvictableIdleTimeMillis() {
         return minEvictableIdleTimeMillis;
     }
@@ -94,6 +106,7 @@ public class RedisProperties {
         this.minEvictableIdleTimeMillis = minEvictableIdleTimeMillis;
     }
 
+    @DisconfFileItem(name = "redis.numTestsPerEvictionRun", associateField = "numTestsPerEvictionRun")
     public Integer getNumTestsPerEvictionRun() {
         return numTestsPerEvictionRun;
     }
@@ -102,6 +115,7 @@ public class RedisProperties {
         this.numTestsPerEvictionRun = numTestsPerEvictionRun;
     }
 
+    @DisconfFileItem(name = "redis.timeBetweenEvictionRunsMillis", associateField = "timeBetweenEvictionRunsMillis")
     public long getTimeBetweenEvictionRunsMillis() {
         return timeBetweenEvictionRunsMillis;
     }
@@ -110,6 +124,7 @@ public class RedisProperties {
         this.timeBetweenEvictionRunsMillis = timeBetweenEvictionRunsMillis;
     }
 
+    @DisconfFileItem(name = "redis.testOnBorrow", associateField = "testOnBorrow")
     public boolean isTestOnBorrow() {
         return testOnBorrow;
     }
@@ -118,6 +133,7 @@ public class RedisProperties {
         this.testOnBorrow = testOnBorrow;
     }
 
+    @DisconfFileItem(name = "redis.testWhileIdle", associateField = "testWhileIdle")
     public boolean isTestWhileIdle() {
         return testWhileIdle;
     }

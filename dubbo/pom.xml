@@ -21,17 +21,5 @@
         <module>spring-boot-dubbo-consumer</module>
     </modules>
 
-    <properties>
-        <dubbo.version>2.6.3</dubbo.version>
-    </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>dubbo</artifactId>
-            <version>${dubbo.version}</version>
-        </dependency>
-
-    </dependencies>
 
 </project>

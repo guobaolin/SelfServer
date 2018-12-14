@@ -13,6 +13,6 @@ public class RedisController {
 
     @RequestMapping("/index")
     public String index(String name) {
-        return "hello " + redisService.get(name);
+        return (String) redisService.get(name);
     }
 }
