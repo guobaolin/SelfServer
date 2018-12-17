@@ -1,9 +1,12 @@
 package com.gbl.entity;
 
+import java.io.Serializable;
+
 /**
  * Created by guobaolin on 2018/12/6.
  */
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = -6997799133401470412L;
 
     private Integer id;
 

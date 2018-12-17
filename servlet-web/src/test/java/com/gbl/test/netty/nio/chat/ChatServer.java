@@ -9,9 +9,8 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.Vector;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by guobaolin on 2018/12/12.
@@ -79,6 +78,7 @@ public class ChatServer implements Runnable {
                             System.out.println(key.toString() + " : 写");
                             writeMsg(key);
                         }
+//                        iterator.remove();
                     }
                 }
             }
@@ -92,7 +92,7 @@ public class ChatServer implements Runnable {
         try {
             channel = (SocketChannel) key.channel();
             //设置buffer缓冲区
-            ByteBuffer buffer = ByteBuffer.allocate(1024);
+            ByteBuffer buffer = ByteBuffer.allocate(20);
             //假如客户端关闭了通道，这里在对该通道read数据，会发生IOException，捕获到Exception后，关闭掉该channel，取消掉该key
             int count = channel.read(buffer);
             StringBuffer buf = new StringBuffer();
@@ -116,7 +116,7 @@ public class ChatServer implements Runnable {
                     //并更新此key感兴趣的动作
                     if (skey != serverKey) {
                         skey.attach(usernames);
-                        skey.interestOps(skey.interestOps() | SelectionKey.OP_WRITE);
+                        skey.interestOps(SelectionKey.OP_WRITE);
                     }
                 }
                 //如果是下线时发送的数据
@@ -130,12 +130,16 @@ public class ChatServer implements Runnable {
                 while (iter.hasNext()) {
                     SelectionKey sKey = iter.next();
                     sKey.attach(usernames);
-                    sKey.interestOps(sKey.interestOps() | SelectionKey.OP_WRITE);
+                    sKey.interestOps(SelectionKey.OP_WRITE);
                 }
                 //如果是聊天发送数据
             } else {
                 String uname = msg.substring(0, msg.indexOf("^"));
-                msg = msg.substring(msg.indexOf("^") + 1);
+
+                String[] msgArray = msg.split(uname + "\\^");
+                msg = Arrays.stream(msgArray).filter(s->!s.isEmpty()).collect(Collectors.joining(" \n"));
+
+//                msg = msg.substring(msg.indexOf("^") + 1);
                 printInfo("(" + uname + ")说：" + msg);
                 String dateTime = sdf.format(new Date());
                 String smsg = uname + " " + dateTime + "\n  " + msg + "\n";
@@ -143,7 +147,7 @@ public class ChatServer implements Runnable {
                 while (iter.hasNext()) {
                     SelectionKey sKey = iter.next();
                     sKey.attach(smsg);
-                    sKey.interestOps(sKey.interestOps() | SelectionKey.OP_WRITE);
+                    sKey.interestOps(SelectionKey.OP_WRITE);
                 }
             }
             buffer.clear();

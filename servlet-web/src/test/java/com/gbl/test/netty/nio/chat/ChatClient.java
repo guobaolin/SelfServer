@@ -10,7 +10,7 @@ import java.nio.channels.SocketChannel;
  */
 public class ChatClient {
 
-    private static final String HOST = "127.0.0.1";
+    private static final String HOST = "10.8.9.85";
     private static int PORT = 9999;
     private static SocketChannel socket;
     private static ChatClient client;
@@ -48,7 +48,7 @@ public class ChatClient {
     public String receiveMsg() {
         String msg = null;
         try {
-            ByteBuffer buffer = ByteBuffer.allocate(1024);
+            ByteBuffer buffer = ByteBuffer.allocate(20);
             StringBuffer buf = new StringBuffer();
             int count = 0;
             //不一定一次就能读满，连续读

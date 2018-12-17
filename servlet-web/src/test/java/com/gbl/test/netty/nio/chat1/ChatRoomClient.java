@@ -17,7 +17,7 @@ import java.util.Set;
 public class ChatRoomClient {
 
     private Selector selector = null;
-    static final int port = 9999;
+    static final int port = 8083;
     private Charset charset = Charset.forName("UTF-8");
     private SocketChannel socketChannel;
     private String name = "";
@@ -27,7 +27,8 @@ public class ChatRoomClient {
     public void init() throws IOException {
         selector = Selector.open();
         socketChannel = SocketChannel.open();
-        socketChannel.bind(new InetSocketAddress("127.0.0.1", port));
+//        socketChannel.bind(new InetSocketAddress("127.0.0.1", port));
+        socketChannel.connect(new InetSocketAddress("127.0.0.1", port));
         socketChannel.configureBlocking(false);
         socketChannel.register(selector, SelectionKey.OP_READ);
         new Thread(new ClientThread()).start();
