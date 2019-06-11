@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.gbl</groupId>
-    <artifactId>file-server</artifactId>
+    <artifactId>self-server</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>dubbo-zipkin</module>
@@ -17,7 +17,7 @@
     </modules>
     <packaging>pom</packaging>
 
-    <name>file-server</name>
+    <name>self-server</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
