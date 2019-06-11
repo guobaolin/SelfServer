@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:gbl="http://www.gbl.com/schema/gbl"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.gbl.com/schema/gbl
+    http://www.gbl.com/schema/gbl.xsd">
+
+    <description>Spring-application</description>
+
+    <gbl:entity id="student" identity="80021687" param1="guobaolin" param2="27" param3="Het"/>
+
+</beans>

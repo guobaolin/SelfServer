@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Created by guobaolin on 2018/10/31.
  */
-@RestController
-@RequestMapping("/disconf/redis")
+//@RestController
+//@RequestMapping("/disconf/redis")
 public class DisconfRedisController {
 
     @Autowired

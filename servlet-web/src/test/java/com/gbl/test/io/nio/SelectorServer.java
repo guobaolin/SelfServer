@@ -23,7 +23,7 @@ public class SelectorServer {
             socketChannel.configureBlocking(false);
             // 1.register()
             Selector selector = Selector.open();
-            socketChannel.register(selector, SelectionKey.OP_ACCEPT);
+            socketChannel.register(selector, 0);
 //            System.out.println("register channel, channel number is:" + selector.keys().size());
 
             while (true) {

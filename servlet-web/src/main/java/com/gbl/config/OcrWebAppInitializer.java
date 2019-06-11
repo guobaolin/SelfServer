@@ -1,6 +1,6 @@
 package com.gbl.config;
 
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+//import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
  * Created by guobaolin on 2018/11/15.

@@ -26,15 +26,15 @@ public class SelectorClient {
             try {
                 SocketChannel channel = SocketChannel.open();
                 channel.configureBlocking(false);
-                channel.connect(new InetSocketAddress(1234));
+                channel.connect(new InetSocketAddress(8082));
                 while (!channel.finishConnect()) {
                     TimeUnit.MILLISECONDS.sleep(100);
                 }
                 ByteBuffer buffer = ByteBuffer.allocate(1024);
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 3; i++) {
                     int rand = random.nextInt(10);
                     System.out.println("random = " + rand);
-                    TimeUnit.SECONDS.sleep(5 * rand);
+                    TimeUnit.SECONDS.sleep(4 * rand);
                     String str = "Message from " + name + ", number:" + i;
                     buffer.put(str.getBytes());
                     buffer.flip();
@@ -57,7 +57,7 @@ public class SelectorClient {
 //        executorService.submit(new Client("Client--3"));
         executorService.shutdown();
         try {
-            Thread.sleep(100000L);
+            Thread.sleep(1000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

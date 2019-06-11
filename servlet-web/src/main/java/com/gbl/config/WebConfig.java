@@ -1,12 +1,12 @@
 package com.gbl.config;
 
-import com.gbl.servlet.CustomInterceptor;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
+//import com.gbl.servlet.CustomInterceptor;
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.web.servlet.ViewResolver;
+//import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+//import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+//import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+//import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
  * Created by guobaolin on 2018/11/15.

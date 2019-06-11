@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by guobaolin on 2018/10/29.
  */
-@RestController
+//@RestController
 public class RedisController {
 
     @Autowired

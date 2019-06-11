@@ -16,9 +16,9 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisPoolConfig;
 
-@Configuration
-@EnableCaching
-@EnableConfigurationProperties(RedisProperties.class)
+//@Configuration
+//@EnableCaching
+//@EnableConfigurationProperties(RedisProperties.class)
 //@PropertySource("classpath:config/redis.properties")
 public class RedisConfig extends CachingConfigurerSupport {
     private RedisProperties properties;
@@ -27,7 +27,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         this.properties = properties;
     }
 
-    @Bean
+//    @Bean
     public JedisPoolConfig jedisPoolConfig() {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(properties.getMaxIdle());
@@ -40,7 +40,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         return jedisPoolConfig;
     }
 
-    @Bean
+//    @Bean
     public RedisStandaloneConfiguration redisStandaloneConfiguration() {
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
         redisStandaloneConfiguration.setHostName(properties.getHostName());
@@ -50,7 +50,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         return redisStandaloneConfiguration;
     }
 
-    @Bean
+//    @Bean
     public JedisClientConfiguration jedisClientConfiguration(JedisPoolConfig jedisPoolConfig){
         JedisClientConfiguration.JedisPoolingClientConfigurationBuilder
                 jedisPoolConfigBuilder = (JedisClientConfiguration.JedisPoolingClientConfigurationBuilder) JedisClientConfiguration.builder();
@@ -60,24 +60,24 @@ public class RedisConfig extends CachingConfigurerSupport {
         return jedisPoolConfigBuilder.build();
     }
 
-    @Bean
+//    @Bean
     public JedisConnectionFactory jedisConnectionFactory(RedisStandaloneConfiguration redisStandaloneConfiguration,
                                                          JedisClientConfiguration jedisClientConfiguration) {
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(redisStandaloneConfiguration, jedisClientConfiguration);
         return jedisConnectionFactory;
     }
 
-    @Bean
+//    @Bean
     public StringRedisSerializer keySerializer() {
         return new StringRedisSerializer();
     }
 
-    @Bean
+//    @Bean
     public GenericJackson2JsonRedisSerializer valueSerializer() {
         return new GenericJackson2JsonRedisSerializer();
     }
 
-    @Bean
+//    @Bean
     public StringRedisTemplate stringRedisTemplate(JedisConnectionFactory jedisConnectionFactory,
                                                    StringRedisSerializer keySerializer,
                                                    GenericJackson2JsonRedisSerializer valueSerializer) {

@@ -4,9 +4,9 @@ import com.baidu.disconf.client.common.annotations.DisconfFile;
 import com.baidu.disconf.client.common.annotations.DisconfFileItem;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties
+//@ConfigurationProperties
 //@ConfigurationProperties(prefix = RedisProperties.REDIS_PREFIX)
-@DisconfFile(filename = "redis.properties", targetDirPath = "config")
+//@DisconfFile(filename = "redis.properties", targetDirPath = "config")
 public class RedisProperties {
 //    public final static String REDIS_PREFIX = "redis";
 
