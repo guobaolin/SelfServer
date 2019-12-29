@@ -1,6 +1,6 @@
 package com.gbl.configure;
 
-import com.alibaba.dubbo.common.utils.StringUtils;
+import com.sun.deploy.util.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

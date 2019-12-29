@@ -1,16 +1,17 @@
 package com.gbl.configuration;
 
 import com.gbl.exception.RocketMQException;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
+import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 
 @Configuration
 public class RocketMQConsumerConfiguration {
@@ -20,14 +21,20 @@ public class RocketMQConsumerConfiguration {
     private String namesrvAddr;
     @Value("${rocketmq.consumer.groupName}")
     private String groupName;
+    @Value("${rocketmq.consumer.instanceName}")
+    private String instanceName;
     @Value("${rocketmq.consumer.topic}")
     private String topic;
-    @Value("${rocketmq.consumer.tag}")
+    @Value("${rocketmq.consumer.tag:*}")
     private String tag;
-    @Value("${rocketmq.consumer.consumeThreadMin}")
+    @Value("${rocketmq.consumer.consumeThreadMin:20}")
     private int consumeThreadMin;
-    @Value("${rocketmq.consumer.consumeThreadMax}")
+    @Value("${rocketmq.consumer.consumeThreadMax:64}")
     private int consumeThreadMax;
+    @Value("${rocketmq.consumer.pullBatchSize:32}")
+    private int pullBatchSize;
+    @Value("${rocketmq.consumer.consumeMessageBatchMaxSize:1}")
+    private int consumeMessageBatchMaxSize;
 
     @Autowired
     private MQConsumerMsgListenerProcessor mqConsumerMsgListenerProcessor;
@@ -48,6 +55,7 @@ public class RocketMQConsumerConfiguration {
 
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer(groupName);
         consumer.setNamesrvAddr(namesrvAddr);
+        consumer.setInstanceName(instanceName);
         consumer.setConsumeThreadMin(consumeThreadMin);
         consumer.setConsumeThreadMax(consumeThreadMax);
         consumer.registerMessageListener(mqConsumerMsgListenerProcessor);
@@ -59,18 +67,18 @@ public class RocketMQConsumerConfiguration {
         /**
          * 设置消费模型，集群还是广播，默认为集群
          */
-//        consumer.setMessageModel(MessageModel.CLUSTERING);
+        consumer.setMessageModel(MessageModel.CLUSTERING);
         /**
          * 设置一次消费消息的条数，默认为1条
          */
-//        consumer.setConsumeMessageBatchMaxSize(consumeMessageBatchMaxSize);
+        consumer.setConsumeMessageBatchMaxSize(consumeMessageBatchMaxSize);
+        consumer.setPullBatchSize(pullBatchSize);
 
         try {
             consumer.subscribe(topic, tag);
             consumer.start();
             logger.info("consumer is start !!! groupName:{}, topic:{}, namesrvAddr:{}", groupName, topic, namesrvAddr);
         } catch (MQClientException e) {
-            logger.error("consumer is start !!! groupName:{}, topic:{}, namesrvAddr:{}", groupName, topic, namesrvAddr);
             throw new RocketMQException(e);
         }
         return consumer;

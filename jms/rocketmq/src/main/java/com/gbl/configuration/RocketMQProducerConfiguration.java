@@ -1,14 +1,13 @@
 package com.gbl.configuration;
 
-import com.alibaba.rocketmq.client.exception.MQClientException;
-import com.alibaba.rocketmq.client.producer.DefaultMQProducer;
 import com.gbl.exception.RocketMQException;
 import org.apache.commons.lang.StringUtils;
+import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class RocketMQProducerConfiguration {
 
     @Value("${rocketmq.producer.groupName}")
@@ -23,7 +22,7 @@ public class RocketMQProducerConfiguration {
     private int sendMsgTimeout ;
 
     @Bean(destroyMethod = "shutdown")
-    public DefaultMQProducer getRocketMQProducer() throws RocketMQException{
+    public DefaultMQProducer getRocketMQProducer() throws RocketMQException {
         if (StringUtils.isBlank(groupName)){
             throw new RocketMQException("groupName is blank");
         }

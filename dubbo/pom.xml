@@ -19,6 +19,8 @@
         <module>spring-boot-dubbo-provider</module>
         <module>dubbo-service-api</module>
         <module>spring-boot-dubbo-consumer</module>
+        <module>spring-boot-dubbo-provider1</module>
+        <module>spring-boot-dubbo-consumer1</module>
     </modules>
 
 

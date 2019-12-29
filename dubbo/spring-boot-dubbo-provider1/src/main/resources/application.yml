@@ -1,0 +1,55 @@
+server:
+  port: 9999
+
+## dubbo springboot configuration
+#spring:
+#  dubbo:
+#    server: true
+#    application:
+#      id: dubbo-provider1-id
+#      name: dubbo-provider1-name
+#    registry:
+#      address: zookeeper://192.168.120.141:2181
+#    protocol:
+#      name: dubbo
+#      port: 20990
+
+## dubbo springboot configuration multiple
+#spring:
+#  dubbo:
+#    server: true
+#    applications:
+#      - id: dubbo-provider-id-1
+#        name: dubbo-provider-name-1
+#      - id: dubbo-provider-id-2
+#        name: dubbo-provider-name-2
+#    registries:
+#      - id: mv
+#        address: zookeeper://192.168.120.141:2181
+#        group: dubbo
+#      - id: dev
+#        address: zookeeper://10.8.16.79:2181
+#        group: guobaolin
+#    protocols:
+#      - id: protocol-1
+#        name: dubbo
+#        port: 20991
+#      - id: protocol-2
+#        name: dubbo
+#        port: 20992
+
+## dubbo configuration
+dubbo:
+  #  application:
+  #    id: dubbo-provider-id-1
+  #    name: dubbo-provider-name-1
+  registry:
+    id: dev
+    address: zookeeper://10.8.16.79:2181
+    group: guobaolin
+    isDefault: "false"
+  protocol:
+    id: protocol-1
+    name: dubbo
+    port: 20998
+    isDefault: "false"

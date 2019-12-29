@@ -15,6 +15,8 @@
     <!-- 扫描controller（controller层注入） -->
     <context:component-scan base-package="com.gbl.controller"/>
 
+    <context:property-placeholder location="classpath:constant.properties"/>
+
     <mvc:default-servlet-handler/>
 
     <mvc:annotation-driven />

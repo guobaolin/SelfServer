@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+## mqtt configuration
+mqtt:
+  host: tcp://192.168.120.140:1883
+  clientId: server
+  userName: admin
+  password: public
+  timeout: 10
+  keepalive: 20
+  cleanSession: false
+  reconnect: true

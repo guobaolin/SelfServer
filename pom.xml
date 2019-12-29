@@ -14,6 +14,11 @@
         <module>server</module>
         <module>servlet-web</module>
         <module>spring.schema.xml</module>
+        <module>spring-cloud-micro</module>
+        <module>spring-boot-txlcn</module>
+        <module>hadoop</module>
+        <module>spring-boot-mqtt</module>
+        <module>spring-mvc</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -54,12 +59,51 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring.boot.version}</version>
-                <configuration>
-                    <mainClass>com.gbl.ServerApplicationBoot</mainClass>
-            </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!-- 构建类型：构建可执行安装包 -->
+        <profile>
+            <id>build-tar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <configuration>
+                            <finalName>${project.artifactId}</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>${project.build.directory}</descriptor>
+                            </descriptors>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>assembly-app</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 
 </project>

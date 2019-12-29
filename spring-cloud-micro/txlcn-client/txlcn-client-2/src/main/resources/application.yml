@@ -1,0 +1,67 @@
+server:
+  port: 10002
+
+spring:
+  application:
+    name: txlcn-client2
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.120.141:3306/tx-manager?characterEncoding=UTF-8
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      validation-query: select '*'
+      initial-size: 1
+      max-active: 20
+      max-wait: 1000
+      filters: stat
+      pool-prepared-statments: false
+  redis:
+    port: 6379
+    host: 192.168.120.141
+    database: 0
+    jedis:
+      pool:
+        max-idle: 20
+        max-active: 20
+        max-wait: -1
+        min-idle: 0
+    timeout: 1000
+  transaction:
+    rollback-on-commit-failure: true
+eureka:
+  instance:
+    appname: txlcn-client2
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://192.168.120.141:8888/eureka
+#mybatis:
+#  mapper-locations: classpath*:com/client/dao/xml/*.xml
+#  type-aliases-package: com.client.dao.mapper
+tx-lcn:
+  client:
+    manager-address: 192.168.120.141:8070
+
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 10000
+        read-timeout: 20000
+      service-test:
+        connect-timeout: 10000
+        read-timeout: 20000
+  sentinel:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          "*"
+  endpoint:
+    health:
+      show-details: always

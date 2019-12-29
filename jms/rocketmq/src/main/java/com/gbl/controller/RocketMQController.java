@@ -1,39 +1,76 @@
 package com.gbl.controller;
 
-import com.alibaba.rocketmq.client.exception.MQBrokerException;
-import com.alibaba.rocketmq.client.exception.MQClientException;
-import com.alibaba.rocketmq.client.producer.DefaultMQProducer;
-import com.alibaba.rocketmq.client.producer.SendResult;
-import com.alibaba.rocketmq.common.message.Message;
-import com.alibaba.rocketmq.remoting.exception.RemotingException;
-import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.rocketmq.client.exception.MQBrokerException;
+import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.common.message.Message;
+import org.apache.rocketmq.common.message.MessageQueue;
+import org.apache.rocketmq.remoting.common.RemotingHelper;
+import org.apache.rocketmq.remoting.exception.RemotingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+import java.io.UnsupportedEncodingException;
+import java.util.UUID;
+
+//@RestController
 public class RocketMQController {
 
-    @Autowired
-    private DefaultMQProducer defaultMQProducer;
+    private static final Logger logger = LoggerFactory.getLogger(RocketMQController.class);
 
-    @Autowired
-    private DefaultMQPushConsumer defaultMQPushConsumer;
+    //    @Autowired
+    private DefaultMQProducer defaultMQProducer;
+//
+//    @Autowired
+//    private DefaultMQPushConsumer defaultMQPushConsumer;
 
     @RequestMapping("/sendMessage")
-    public String sendMessage(String message) throws InterruptedException, RemotingException, MQClientException, MQBrokerException {
-        Message msg = new Message("TEST-TOPIC",
-                "TEST-TAG",
-                "keys",
-                message.getBytes());
-        SendResult result = defaultMQProducer.send(msg);
-        return result.toString();
+    public String sendMessage(String message) throws InterruptedException, RemotingException, MQClientException, MQBrokerException, UnsupportedEncodingException {
+        String topic = "GUO_BAO_LIN";
+        String tags = "lin";
+        String messages = message;
+        String keys = UUID.randomUUID().toString().replace("-", "");
+        Message msg = null;
+        try {
+            msg = new Message(topic, tags, keys, messages.getBytes(RemotingHelper.DEFAULT_CHARSET));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        SendResult result = null;
+        try {
+//            SendCallback sendCallback = new SendCallback() {
+//                @Override
+//                public void onSuccess(SendResult sendResult) {
+//                    System.out.println(sendResult);
+//                }
+//
+//                @Override
+//                public void onException(Throwable e) {
+//                    System.out.println(e.getCause() + " " + e.getMessage());
+//                }
+//            };
+//
+//            defaultMQProducer.send(msg, sendCallback, 10);  //同步方式
+
+            MessageQueue messageQueue = new MessageQueue();
+
+            defaultMQProducer.sendOneway(msg);
+
+        } catch (MQClientException | RemotingException | InterruptedException e) {
+            e.printStackTrace();
+        }
+//        System.out.println(result.toString());
+        return "rocketmq producer run...";
     }
 
     @RequestMapping("/pushMessage")
     public String pullMessage(){
 
 //        defaultMQPushConsumer.getMessage
+
+
         return "";
     }
 }

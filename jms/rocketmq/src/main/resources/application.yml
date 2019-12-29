@@ -1,17 +1,20 @@
 server:
-  port: 8091
+  port: 8090
 
 rocketmq:
-  producer:
-    groupName: guobaolin-groupName
-    namesrvAddr: 192.168.120.129:9876
-    instanceName: guobaolin-instanceName
-    maxMessageSize: 131072
-    sendMsgTimeout: 10000
+  #  producer:
+  #    groupName: guobaolin1-groupName
+  #    namesrvAddr: 192.168.120.138:9876;192.168.120.129:9876
+  #    instanceName: guobaolin-instanceName
+  #    maxMessageSize: 131072
+  #    sendMsgTimeout: 10000
   consumer:
-    groupName: guobaolin-c-groupName
-    namesrvAddr: 192.168.120.129:9876
-    topic: TEST-TOPIC
-    tag: TEST-TAG
-    consumeThreadMin: 1
-    consumeThreadMax: 3
+    groupName: alp_device_data
+    instanceName: clife-devicedata-test1
+    namesrvAddr: 10.8.9.22:9876;10.8.34.6:9876
+    topic: ALP_RUN_DATA_TOPIC
+    #    tag:
+    consumeThreadMin: 20
+    consumeThreadMax: 64
+    pullBatchSize: 80
+    consumeMessageBatchMaxSize: 150

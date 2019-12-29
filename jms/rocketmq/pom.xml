@@ -15,6 +15,13 @@
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
+    <properties>
+        <!-- Java应用默认启动参数 -->
+        <java.opts>-Xms256M -Xmx256M</java.opts>
+        <main.class>com.gbl.RocketMQBoot</main.class>
+        <!--        <project.build.directory>src/main/assembly/package.xml</project.build.directory>-->
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -38,21 +45,6 @@
             <artifactId>rocketmq-client</artifactId>
             <version>3.5.9</version>
         </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>com.alibaba.rocketmq</groupId>-->
-            <!--<artifactId>rocketmq-all</artifactId>-->
-            <!--<version>3.5.9</version>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>ch.qos.logback</groupId>-->
-            <!--<artifactId>logback-classic</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>ch.qos.logback</groupId>-->
-            <!--<artifactId>logback-core</artifactId>-->
-        <!--</dependency>-->
 
         <dependency>
             <groupId>com.alibaba</groupId>

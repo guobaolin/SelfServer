@@ -17,7 +17,14 @@
     <url>http://www.example.com</url>
 
     <dependencies>
-         <!--springboot 测试包-->
+
+        <dependency>
+            <groupId>com.github.jurajburian</groupId>
+            <artifactId>mailer_2.12</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+        <!--springboot 测试包-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
