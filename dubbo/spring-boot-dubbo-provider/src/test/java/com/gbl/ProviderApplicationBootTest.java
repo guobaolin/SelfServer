@@ -19,7 +19,7 @@ public class ProviderApplicationBootTest {
     @Test
     public void index(){
         Serializable id = redisService.get("name");
-
+        // TODO
         System.out.println(id);
     }
 }
